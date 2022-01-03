@@ -11,10 +11,12 @@
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background-image: url("../assets/img/background.png");
-    background-position: 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: {
+        image: url("../assets/img/background.png");
+        position: 50% 50%;
+        size: cover;
+        repeat: no-repeat;
+    }
     display: flex;
     justify-content: center;
     align-items: center;
