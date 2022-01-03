@@ -1,0 +1,18 @@
+{
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "npm.packageManager": "pnpm",
+    "eslint.probe": [
+      "javascript",
+      "typescript",
+      "html",
+      "vue"
+    ],
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "html",
+      "vue"
+    ]
+  }
