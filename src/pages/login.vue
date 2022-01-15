@@ -1,6 +1,8 @@
 <template>
     <main class="singer-login">
-        <section class="singer-login-logpart"></section>
+        <section class="singer-login-logpart">
+            <SiButton type="button">登录</SiButton>
+        </section>
     </main>
 </template>
 
