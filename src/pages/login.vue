@@ -11,12 +11,30 @@
                     <SiInput type="password"></SiInput>
                 </div>
             </section>
-            <SiButton>登录</SiButton>
+            <SiButton @click="logIn">登录</SiButton>
         </section>
     </main>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { provideApolloClient, useQuery } from "@vue/apollo-composable";
+import { apolloClient } from "../apollo/client";
+import gql from "graphql-tag";
+const logIn = () => {
+    const res = provideApolloClient(apolloClient)(() =>
+        useQuery(gql`
+            query {
+                login(account: "zqt", password: "nicky") {
+                    account
+                    password
+                    _id
+                }
+            }
+        `)
+    );
+    console.log(res);
+};
+</script>
 
 <style lang="scss" scoped>
 .singer-login {

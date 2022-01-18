@@ -9,7 +9,12 @@
         "build": "vite build"
     },
     "dependencies": {
+        "@apollo/client": "^3.5.7",
         "@vitejs/plugin-vue": "^1.9.4",
+        "@vue/apollo-composable": "^4.0.0-alpha.16",
+        "@vue/apollo-option": "^4.0.0-alpha.16",
+        "graphql": "^16.2.0",
+        "graphql-tag": "^2.12.6",
         "silence-ui": "^0.0.1",
         "typescript": "^4.4.4",
         "vite": "^2.6.14",
