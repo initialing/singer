@@ -4,11 +4,11 @@
             <section class="singer-login-input">
                 <div>
                     <label>账号：</label>
-                    <SiInput type="text"></SiInput>
+                    <SiInput v-model="account" type="text"></SiInput>
                 </div>
                 <div>
                     <label>密码：</label>
-                    <SiInput type="password"></SiInput>
+                    <SiInput v-model="password" type="password"></SiInput>
                 </div>
             </section>
             <SiButton @click="logIn">登录</SiButton>
@@ -20,19 +20,34 @@
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
 import { apolloClient } from "../apollo/client";
 import gql from "graphql-tag";
+import { ref, Ref } from "vue";
+
+const account: Ref<string> = ref("");
+const password: Ref<string> = ref("");
+
 const logIn = () => {
-    const res = provideApolloClient(apolloClient)(() =>
-        useQuery(gql`
-            query {
-                login(account: "zqt", password: "nicky") {
-                    account
-                    password
-                    _id
+    if (!account.value || !password.value) return;
+    const { result, error, loading } = provideApolloClient(apolloClient)(() =>
+        useQuery(
+            gql`
+                query signIn($account: String!, $password: String!) {
+                    login(account: $account, password: $password) {
+                        account
+                        password
+                        _id
+                    }
                 }
+            `,
+            {
+                account: account.value,
+                password: password.value,
+            },
+            {
+                fetchPolicy: "no-cache",
             }
-        `)
+        )
     );
-    console.log(res);
+    console.log(result.value.login, error.value, loading.value);
 };
 </script>
 
