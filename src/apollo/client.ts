@@ -6,11 +6,12 @@ import {
     from,
 } from "@apollo/client/core";
 
-// import {  } from "@apollo/client/link/context"
+import { onError } from "@apollo/client/link/error";
+import router from "../router";
 
 const storage: Storage = localStorage;
 
-const httpLink = new HttpLink({ uri: "http://localhost:3000/singer" });
+const httpLink = new HttpLink({ uri: "/singer" });
 
 const cache = new InMemoryCache({
     typePolicies: {
@@ -43,7 +44,18 @@ const authHeader = new ApolloLink((operation, forward) => {
     });
 });
 
+const authError = onError(({ graphQLErrors }) => {
+    if (graphQLErrors) {
+        for (const e of graphQLErrors) {
+            if (e.message === "Unauthorized") {
+                router.push({ path: "/login" });
+                break;
+            }
+        }
+    }
+});
+
 export const apolloClient = new ApolloClient({
     cache,
-    link: from([authHeader, httpLink]),
+    link: from([authHeader, authError, httpLink]),
 });

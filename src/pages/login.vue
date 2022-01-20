@@ -20,14 +20,18 @@
 import { provideApolloClient, useQuery } from "@vue/apollo-composable";
 import { apolloClient } from "../apollo/client";
 import gql from "graphql-tag";
-import { ref, Ref } from "vue";
+import { ref, Ref, watch } from "vue";
+import { Router, useRouter } from "vue-router";
 
 const account: Ref<string> = ref("");
 const password: Ref<string> = ref("");
-
+const logResult: Ref<Record<string, unknown> | null> = ref(null);
+const logLoading: Ref<boolean> = ref(true);
+const router: Router = useRouter();
 const logIn = () => {
     if (!account.value || !password.value) return;
-    const { result, error, loading } = provideApolloClient(apolloClient)(() =>
+    logLoading.value = false;
+    const { result, loading } = provideApolloClient(apolloClient)(() =>
         useQuery(
             gql`
                 query signIn($account: String!, $password: String!) {
@@ -47,7 +51,13 @@ const logIn = () => {
             }
         )
     );
-    console.log(result.value.login, error.value, loading.value);
+    watch(loading, (value) => {
+        logLoading.value = value;
+        logResult.value = result.value.login;
+        router.push({
+            path: "/",
+        });
+    });
 };
 </script>
 
