@@ -1,21 +1,18 @@
 <template>
-    <main>this is main page</main>
+    <main>this is main page {{ res?.code }}</main>
 </template>
 
 <script lang="ts" setup>
-import {
-    provideApolloClient,
-    useQuery,
-    useResult,
-} from "@vue/apollo-composable";
 import gql from "graphql-tag";
-import { onMounted, Ref, ref, watch } from "vue";
+import { onMounted, Ref, ref } from "vue";
 import { apolloClient } from "../apollo/client";
+import { asyncQuery } from "../apollo/promiseGql";
 
-let res: Ref<Record<string, unknown> | null> = ref(null);
+const res: Ref<Record<string, unknown> | null> = ref(null);
 onMounted(() => {
-    const { result, loading } = provideApolloClient(apolloClient)(() =>
-        useQuery(gql`
+    asyncQuery(
+        apolloClient,
+        gql`
             query main {
                 getMain {
                     code
@@ -26,11 +23,9 @@ onMounted(() => {
                     describe
                 }
             }
-        `)
-    );
-    res.value = useResult(result, {}, (data) => data.getMain).value;
-    watch(result, (value) => {
-        res.value = value.getMain;
+        `
+    ).then((result) => {
+        res.value = result.result.value.getMain;
     });
 });
 </script>
