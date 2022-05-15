@@ -13,6 +13,7 @@ specifiers:
   eslint-plugin-vue: ^8.2.0
   graphql: ^16.2.0
   graphql-tag: ^2.12.6
+  pinia: ^2.0.14
   prettier: ^2.5.1
   sass: ^1.45.2
   silence-ui: ^0.0.1
@@ -29,6 +30,7 @@ dependencies:
   '@vue/apollo-option': 4.0.0-alpha.16_@apollo+client@3.5.7+vue@3.2.22
   graphql: 16.2.0
   graphql-tag: 2.12.6_graphql@16.2.0
+  pinia: 2.0.14_typescript@4.5.2+vue@3.2.22
   silence-ui: link:../../utility/silence-ui/dist/silence-ui
   typescript: 4.5.2
   vite: 2.6.14_sass@1.45.2
@@ -422,6 +424,10 @@ packages:
 
   /@vue/devtools-api/6.0.0-beta.20.1:
     resolution: {integrity: sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q==}
+    dev: false
+
+  /@vue/devtools-api/6.1.4:
+    resolution: {integrity: sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==}
     dev: false
 
   /@vue/reactivity/3.2.22:
@@ -1540,6 +1546,24 @@ packages:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
     dev: true
+
+  /pinia/2.0.14_typescript@4.5.2+vue@3.2.22:
+    resolution: {integrity: sha512-0nPuZR4TetT/WcLN+feMSjWJku3SQU7dBbXC6uw+R6FLQJCsg+/0pzXyD82T1FmAYe0lsx+jnEDQ1BLgkRKlxA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.1.4
+      typescript: 4.5.2
+      vue: 3.2.22
+      vue-demi: 0.12.1_vue@3.2.22
+    dev: false
 
   /postcss/8.3.11:
     resolution: {integrity: sha512-hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==}

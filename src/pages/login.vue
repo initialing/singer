@@ -4,14 +4,14 @@
             <section class="singer-login-input">
                 <div>
                     <label>账号：</label>
-                    <SiInput v-model="account" type="text"></SiInput>
+                    <si-input v-model="account" type="text"></si-input>
                 </div>
                 <div>
                     <label>密码：</label>
-                    <SiInput v-model="password" type="password"></SiInput>
+                    <si-input v-model="password" type="password"></si-input>
                 </div>
             </section>
-            <SiButton @click="logIn">登录</SiButton>
+            <si-button @click="logIn">登录</si-button>
         </section>
     </main>
 </template>

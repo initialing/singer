@@ -4,26 +4,31 @@
         <section class="sg-editcountry-editpart">
             <div class="sg-editcountry-edit">
                 <label>国家/地区名：</label>
-                <SiInput
+                <si-input
                     v-model="countryName"
                     placeholder="请输入国家或地区名"
-                ></SiInput>
+                ></si-input>
             </div>
             <div class="sg-editcountry-submit">
-                <SiButton @click="submit">提交</SiButton>
+                <si-button @click="submit">提交</si-button>
             </div>
         </section>
     </article>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import type { Ref } from "vue";
 import { provideApolloClient, useMutation } from "@vue/apollo-composable";
 import { apolloClient } from "../../../apollo/client";
 import gql from "graphql-tag";
+import { Router, useRouter } from "vue-router";
+import { countryStore } from "../../../store/country";
 
+const router: Router = useRouter();
 const countryName: Ref<string> = ref("");
+const countryStoreInstance = countryStore();
+const id: Ref<string> = ref("");
 const { mutate: addCountry } = provideApolloClient(apolloClient)(() =>
     useMutation(
         gql`
@@ -41,11 +46,40 @@ const { mutate: addCountry } = provideApolloClient(apolloClient)(() =>
         })
     )
 );
+
+const { mutate: editCountry } = provideApolloClient(apolloClient)(() =>
+    useMutation(gql`
+        mutation editCountry($id: String!, $name: String!) {
+            editCountry(id: $id, name: $name) {
+                _id
+                name
+            }
+        }
+    `)
+);
+onMounted(() => {
+    if (countryStoreInstance.editType === "edit") {
+        id.value = countryStoreInstance.countryId;
+        countryName.value = countryStoreInstance.countryName;
+    }
+    countryStoreInstance.editType = "create";
+});
 const submit = () => {
     if (!countryName.value) return;
-    addCountry().then((res) => {
-        console.log(res);
-    });
+    if (!id.value) {
+        addCountry().then((res) => {
+            console.log(res);
+            router.push({ path: "/edit/country/show" });
+        });
+    } else {
+        editCountry({
+            id: id.value,
+            name: countryName.value,
+        }).then((res) => {
+            console.log(res);
+            router.push({ path: "/edit/country/show" });
+        });
+    }
 };
 </script>
 
