@@ -147,8 +147,6 @@ const edit = (item: Country) => {
         justify-content: space-between;
         align-items: center;
         border-bottom: 0.5px solid #a3afc6;
-        &-name {
-        }
     }
 }
 </style>
