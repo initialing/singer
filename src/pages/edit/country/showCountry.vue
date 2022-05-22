@@ -41,7 +41,7 @@ import {
     useQuery,
     useResult,
 } from "@vue/apollo-composable";
-import { onMounted, reactive, watch, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { apolloClient } from "../../../apollo/client";
 import gql from "graphql-tag";
 import type { Ref } from "vue";

@@ -21,3 +21,14 @@ export type Selector = {
     value: string;
     label: string;
 };
+
+export type ArtistBase = {
+    _id?: string;
+    name?: string;
+    birthday?: string;
+    deadTime?: string;
+    country?: Country;
+    activeTime?: string[][];
+};
+
+export type Artist = ArtistBase & Normal;
